@@ -9,7 +9,7 @@
     <string name="title_now_playing">Now Playing</string>
     <string name="title_favorite">Favorite</string>
     <string name="detail">detail</string>
-    <string name="favorite">favorite</string>
+    <string name="share">share</string>
     <string name="query_hint">Search Movie</string>
     <string name="title_activity_detail">DetailActivity</string>
 

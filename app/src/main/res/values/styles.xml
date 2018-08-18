@@ -44,8 +44,8 @@
         <item name="android:text">@string/detail</item>
     </style>
 
-    <style name="ButtonMoviewItem.Favorite">
-        <item name="android:text">@string/favorite</item>
+    <style name="ButtonMoviewItem.share">
+        <item name="android:text">@string/share</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -62,21 +62,11 @@
         <item name="android:layout_marginRight">8dp</item>
     </style>
 
-    <style name="CardMovie.Detail">
-        <item name="android:layout_height">0dp</item>
+    <style name="CardMovie.DetailProperties">
+        <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="CardMovie.Detail.Title">
-        <item name="android:layout_weight">.15</item>
-    </style>
 
-    <style name="CardMovie.Detail.Overview">
-        <item name="android:layout_weight">.2</item>
-    </style>
-
-    <style name="CardMovie.Detail.Detail">
-        <item name="android:layout_weight">.65</item>
-    </style>
 
     <style name="TextDetailMovie" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#444444</item>

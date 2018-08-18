@@ -2,6 +2,7 @@ package com.example.genjeh.mycataloguemovieuiux.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,13 +17,14 @@ import com.bumptech.glide.Glide;
 import com.example.genjeh.mycataloguemovieuiux.Activity.DetailActivity;
 import com.example.genjeh.mycataloguemovieuiux.CustomListener.CustomOnItemClickListener;
 import com.example.genjeh.mycataloguemovieuiux.Data.Movie;
+import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
 import com.example.genjeh.mycataloguemovieuiux.R;
 
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
     private Context context;
-    private ArrayList<Movie> listMovies ;
+    private ArrayList<Movie> listMovies = new ArrayList<>();
     private static final String imgUrl = "http://image.tmdb.org/t/p/w185";
 
     public MovieAdapter(Context context) {
@@ -40,14 +42,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     @NonNull
     @Override
     public MovieAdapter.MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_movie,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_movie, parent, false);
         return new MovieHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.MovieHolder holder, int position) {
         Glide.with(context)
-                .load(imgUrl+listMovies.get(position).getMoviePosterUrl())
+                .load(imgUrl + listMovies.get(position).getMoviePosterUrl())
                 .into(holder.movieImage);
         holder.movieTitle.setText(getListMovies().get(position).getMovieTitle());
         holder.movieOverview.setText(getListMovies().get(position).getMovieOverview());
@@ -55,16 +57,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         holder.movieBtnDetail.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View v, int position) {
-                Intent intent = new Intent(context,DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_MOVIE_ID,getListMovies().get(position).getMovieId());
+                Intent intent = new Intent(context, DetailActivity.class);
+                Movie movie = new Movie(getListMovies().get(position).getMovieId()
+                        , getListMovies().get(position).getMovieTitle()
+                        , getListMovies().get(position).getMovieOverview()
+                        , getListMovies().get(position).getMovieReleaseDate()
+                        , getListMovies().get(position).getMoviePosterUrl()
+                );
+                intent.putExtra(DetailActivity.EXTRA_MOVIE_FAVORITE, movie);
                 context.startActivity(intent);
 
             }
         }));
-        holder.movieBtnFav.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
+        holder.movieBtnShare.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View v, int position) {
-                Toast.makeText(context,"Favorite",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Shared", Toast.LENGTH_SHORT).show();
             }
         }));
     }
@@ -80,7 +88,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         private TextView movieOverview;
         private TextView movieReleaseDate;
         private Button movieBtnDetail;
-        private Button movieBtnFav;
+        private Button movieBtnShare;
 
         MovieHolder(View itemView) {
             super(itemView);
@@ -89,7 +97,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             movieOverview = itemView.findViewById(R.id.movie_overview);
             movieReleaseDate = itemView.findViewById(R.id.movie_release_date);
             movieBtnDetail = itemView.findViewById(R.id.btn_detail);
-            movieBtnFav = itemView.findViewById(R.id.btn_favorite);
+            movieBtnShare = itemView.findViewById(R.id.btn_share);
         }
     }
 }

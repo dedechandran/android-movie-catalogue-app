@@ -26,34 +26,46 @@ import com.example.genjeh.mycataloguemovieuiux.Fragment.UpcomingFragment;
 import com.example.genjeh.mycataloguemovieuiux.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment;
-    private MaterialSearchView materialSearchView;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private boolean submitState = false;
+    private String fragment_name;
+
     private static final String EXTRA_FRAGMENT_NAME = "extra_fragment_name";
     private static final String EXTRA_SUBMIT_STATE = "extra_submit_state";
-    private String fragment_name;
+
+    private boolean submitState = false;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.collapse_toolbar)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomNavigation;
+
+    @BindView(R.id.search_view_material)
+    MaterialSearchView materialSearchView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapse_toolbar);
+        setSupportActionBar(toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
 
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-
-        materialSearchView = findViewById(R.id.search_view_material);
         fragmentManager = getSupportFragmentManager();
-
 
         if (savedInstanceState == null) {
             Fragment upcomingFragment = new UpcomingFragment();
@@ -186,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 materialSearchView.closeSearch();
             }
-
 
         } else {
             super.onBackPressed();

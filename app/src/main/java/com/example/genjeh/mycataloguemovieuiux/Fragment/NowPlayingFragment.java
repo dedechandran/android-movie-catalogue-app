@@ -22,26 +22,23 @@ import com.example.genjeh.mycataloguemovieuiux.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NowPlayingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
+
+    @BindView(R.id.rv_movie)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
     private MovieAdapter movieAdapter;
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
-    private Context mContext;
-
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext=context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mContext=null;
-    }
+    private static final int LOAD_ID_MOVIE_NOW_PLAYING = 300;
 
     public NowPlayingFragment() {
         // Required empty public constructor
@@ -52,12 +49,11 @@ public class NowPlayingFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
-        recyclerView = view.findViewById(R.id.rv_movie);
-        recyclerView.setNestedScrollingEnabled(true);
-        progressBar = view.findViewById(R.id.progressbar);
-        movieAdapter = new MovieAdapter(getActivity());
-        movieAdapter.notifyDataSetChanged();
-        getLoaderManager().initLoader(1, null, this);
+        ButterKnife.bind(this,view);
+        movieAdapter = new MovieAdapter(getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(movieAdapter);
+        getLoaderManager().initLoader(LOAD_ID_MOVIE_NOW_PLAYING, null, this);
 
 
         return view;
@@ -66,19 +62,19 @@ public class NowPlayingFragment extends Fragment implements LoaderManager.Loader
     @NonNull
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new LoaderMovieNowPlaying(mContext);
+        return new LoaderMovieNowPlaying(getContext());
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
         progressBar.setVisibility(View.INVISIBLE);
         movieAdapter.setListMovies(data);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(movieAdapter);
+        movieAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Movie>> loader) {
         movieAdapter.setListMovies(null);
+        movieAdapter.notifyDataSetChanged();
     }
 }

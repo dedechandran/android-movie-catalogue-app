@@ -28,11 +28,9 @@ public class LoaderMovieResult extends AsyncTaskLoader<ArrayList<Movie>> {
 
 
     public LoaderMovieResult(@NonNull Context context,String movieName) {
-
         super(context);
         onContentChanged();
         this.movieName = movieName;
-        Log.d("OnConstructor",movieName);
     }
 
     @Override
@@ -65,7 +63,6 @@ public class LoaderMovieResult extends AsyncTaskLoader<ArrayList<Movie>> {
     @Override
     public ArrayList<Movie> loadInBackground() {
         SyncHttpClient client = new SyncHttpClient();
-        //final SyncHttpClient clientDetail = new SyncHttpClient();
         final ArrayList<Movie> resultmovieItems = new ArrayList<>();
         String url = "https://api.themoviedb.org/3/search/movie?api_key="+API_KEY+"&language=en-US&query="+movieName;
         client.get(url, new AsyncHttpResponseHandler() {
@@ -79,20 +76,15 @@ public class LoaderMovieResult extends AsyncTaskLoader<ArrayList<Movie>> {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     String response = new String(responseBody);
-                    Log.d("Response",response);
                     JSONObject object = new JSONObject(response);
                     JSONArray listResultMovies = object.getJSONArray("results");
-                    log.d("Movies Results",String.valueOf(listResultMovies.length()));
                     for(int i=0;i<listResultMovies.length();i++){
                         JSONObject resultMovieItem = listResultMovies.getJSONObject(i);
                         int id = resultMovieItem.getInt("id");
-                        //JSONObject[] upcomingMovieDetail = getDetailMovie(clientDetail,id);
                         resultmovieItems.add(new Movie(resultMovieItem,id));
 
                     }
-
                 } catch (JSONException e) {
-                    Log.d("ExceptionStackTrace","ERRROOOORR AJG");
                     e.printStackTrace();
                 }
 
