@@ -59,8 +59,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @BindView(R.id.detail_image_progressbar)
     ProgressBar progressBar;
 
+    @BindView(R.id.detail_collapse_toolbar)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+
     private boolean flag = false;
     private Movie movie;
+    private static final int LOAD_ID_MOVIE_DETAIL = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +82,15 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        progressBar = findViewById(R.id.detail_image_progressbar);
-        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapse_toolbar);
+        fabFavorite.setEnabled(false);
+
         collapsingToolbarLayout.setTitle(getResources().getString(R.string.detail_activity));
         collapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
 
-
         movie = getIntent().getParcelableExtra(EXTRA_MOVIE_FAVORITE);
-        Bundle bundle = new Bundle();
-        bundle.putInt(EXTRA_MOVIE_ID, movie.getMovieId());
 
+        //mengecek kedalam database apakah movie tertentu sudah pernah dijadikan movie favorite atau belum
         Uri uri = Uri.parse(DbContract.CONTENT_URI + "/" + movie.getMovieId());
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         if (cursor.getCount() > 0) {
@@ -120,15 +122,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        getSupportLoaderManager().initLoader(4, bundle, this);
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_MOVIE_ID, movie.getMovieId());
+        getSupportLoaderManager().initLoader(LOAD_ID_MOVIE_DETAIL, bundle, this);
 
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
 
     @NonNull
     @Override
@@ -161,13 +160,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         String popularity = new DecimalFormat("#.#").format(data.getMoviePopularity());
         detailMovies.get(10).setText(voteAvg);
         detailMovies.get(11).setText(popularity);
-
+        fabFavorite.setEnabled(true);
 
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Movie> loader) {
-
+        loader = null;
     }
 
     private ArrayList<String> getMultipleDetail(String key, Movie movie) {

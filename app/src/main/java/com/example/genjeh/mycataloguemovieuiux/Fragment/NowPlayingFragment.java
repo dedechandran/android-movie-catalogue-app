@@ -67,7 +67,7 @@ public class NowPlayingFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
         movieAdapter.setListMovies(data);
         movieAdapter.notifyDataSetChanged();
     }

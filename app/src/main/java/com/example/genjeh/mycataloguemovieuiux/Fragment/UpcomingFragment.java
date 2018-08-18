@@ -70,7 +70,7 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
-           progressBar.setVisibility(View.INVISIBLE);
+           progressBar.setVisibility(View.GONE);
            movieAdapter.setListMovies(data);
            movieAdapter.notifyDataSetChanged();
     }

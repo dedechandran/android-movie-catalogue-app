@@ -21,6 +21,11 @@ import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
 import com.example.genjeh.mycataloguemovieuiux.R;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
     private Context context;
@@ -51,10 +56,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         Glide.with(context)
                 .load(imgUrl + listMovies.get(position).getMoviePosterUrl())
                 .into(holder.movieImage);
-        holder.movieTitle.setText(getListMovies().get(position).getMovieTitle());
-        holder.movieOverview.setText(getListMovies().get(position).getMovieOverview());
-        holder.movieReleaseDate.setText(getListMovies().get(position).getMovieReleaseDate());
-        holder.movieBtnDetail.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
+        holder.movieFavProperties.get(0).setText(getListMovies().get(position).getMovieTitle());
+        holder.movieFavProperties.get(1).setText(getListMovies().get(position).getMovieOverview());
+        holder.movieFavProperties.get(2).setText(getListMovies().get(position).getMovieReleaseDate());
+        holder.movieBtn.get(0).setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View v, int position) {
                 Intent intent = new Intent(context, DetailActivity.class);
@@ -69,10 +74,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
             }
         }));
-        holder.movieBtnShare.setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
+        holder.movieBtn.get(1).setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View v, int position) {
-                Toast.makeText(context, "Shared", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.share), Toast.LENGTH_SHORT).show();
             }
         }));
     }
@@ -83,21 +88,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     }
 
     class MovieHolder extends RecyclerView.ViewHolder {
-        private ImageView movieImage;
-        private TextView movieTitle;
-        private TextView movieOverview;
-        private TextView movieReleaseDate;
-        private Button movieBtnDetail;
-        private Button movieBtnShare;
+        @BindViews({R.id.movie_title, R.id.movie_overview, R.id.movie_release_date})
+        List<TextView> movieFavProperties;
+
+        @BindView(R.id.movie_image)
+        ImageView movieImage;
+
+        @BindViews({R.id.btn_detail, R.id.btn_share})
+        List<Button> movieBtn;
 
         MovieHolder(View itemView) {
             super(itemView);
-            movieImage = itemView.findViewById(R.id.movie_image);
-            movieTitle = itemView.findViewById(R.id.movie_title);
-            movieOverview = itemView.findViewById(R.id.movie_overview);
-            movieReleaseDate = itemView.findViewById(R.id.movie_release_date);
-            movieBtnDetail = itemView.findViewById(R.id.btn_detail);
-            movieBtnShare = itemView.findViewById(R.id.btn_share);
+            ButterKnife.bind(this,itemView);
         }
     }
 }

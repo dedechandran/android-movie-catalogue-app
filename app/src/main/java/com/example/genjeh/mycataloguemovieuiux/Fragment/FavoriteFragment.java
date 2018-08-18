@@ -51,11 +51,17 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         adapter = new MovieFavoriteAdapter(getContext());
         rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMovie.setAdapter(adapter);
-        rvMovie.setNestedScrollingEnabled(true);
+
 
         getLoaderManager().initLoader(LOAD_ID_MOVIE_FAVORITE,null,this);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        getLoaderManager().restartLoader(LOAD_ID_MOVIE_FAVORITE,null,this);
+        super.onResume();
     }
 
     @NonNull
@@ -66,6 +72,7 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        progressBar.setVisibility(View.GONE);
         adapter.setDataMovieFav(data);
         adapter.notifyDataSetChanged();
     }

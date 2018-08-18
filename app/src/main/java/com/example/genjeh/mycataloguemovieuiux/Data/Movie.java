@@ -60,7 +60,6 @@ public class Movie implements Parcelable {
 
     public Movie(JSONObject object) {
         try {
-            Log.d("Constructor", "Movie: InConstructor");
             movieTitle = object.getString("title");
             movieOverview = object.getString("overview");
             movieReleaseDate = object.getString("release_date");
@@ -92,7 +91,6 @@ public class Movie implements Parcelable {
             for (int i = 0; i < countries.length(); i++) {
                 movieProductionCountries.add(countries.getJSONObject(i).getString("name"));
             }
-            Log.d("Constructor", "Movie: EndConstructor");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -41,8 +41,8 @@ public class MovieHelper {
         return database.insert(FAVORITE_TABLE_NAME,null,contentValues);
     }
 
-    public int update(String id,ContentValues contentValues){
-        return database.update(FAVORITE_TABLE_NAME,contentValues,COLUMN_ID + " = ?",new String[]{id});
+    public int update(String movieId,ContentValues contentValues){
+        return database.update(FAVORITE_TABLE_NAME,contentValues,DbContract.FavoriteColumns.MOVIE_ID + " = ?",new String[]{movieId});
     }
 
     public int deleteMovieId(String movieId){
