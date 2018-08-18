@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="detail_activity">Detail Film"</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="search">Telusuri</string>
+    <string name="change_language">Ganti Bahasa</string>
+    <string name="title_upcoming">Akan Datang</string>
+    <string name="title_now_playing">Sedang Tayang</string>
+    <string name="title_favorite">Favorit</string>
+    <string name="detail">detail</string>
+    <string name="favorite">favorit</string>
+    <string name="query_hint">Telusuri Film</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detail_overview">Gambaran</string>
+    <string name="detail_title">Judul</string>
+    <string name="detail_movie">Detail</string>
+    <string name="detail_official_sites">Halaman Ofisial</string>
+    <string name="detail_language">Bahasa</string>
+    <string name="detail_release_date">Tanggal Rilis</string>
+    <string name="detail_genres">Aliran</string>
+    <string name="detail_companies">Perusahaan</string>
+    <string name="detail_duration">Durasi</string>
+    <string name="detail_vote_count">Jumlah Suara</string>
+    <string name="detail_average_vote">Rata-rata Suara</string>
+    <string name="detail_popularity">Popularitas</string>
+    <string name="detail_country">Negara</string>
+    <string name="favorite_page">Halaman Favorit</string>
+    <string name="movie_result">Film Tidak Ditemukan</string>
+</resources>
