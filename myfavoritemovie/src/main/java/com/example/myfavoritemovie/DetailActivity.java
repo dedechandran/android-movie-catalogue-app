@@ -1,10 +1,9 @@
-package com.example.genjeh.mycataloguemovieuiux.Activity;
+package com.example.myfavoritemovie;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,10 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.genjeh.mycataloguemovieuiux.Data.Movie;
-import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
-import com.example.genjeh.mycataloguemovieuiux.Loader.LoaderMovieDetail;
-import com.example.genjeh.mycataloguemovieuiux.R;
+import com.example.myfavoritemovie.Data.Movie;
+import com.example.myfavoritemovie.Database.DbContract;
+import com.example.myfavoritemovie.Loader.LoaderMovieDetail;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -34,7 +33,6 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Movie> {
-
     public static final String EXTRA_MOVIE_ID = "movie_id";
     public static final String EXTRA_MOVIE_FAVORITE = "movie_favorite";
     private static final String imgUrl = "http://image.tmdb.org/t/p/w342";
@@ -71,7 +69,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private boolean flag = false;
     private Movie movie;
-    private static final int LOAD_ID_MOVIE_DETAIL = 500;
+    private static final int LOAD_FAVORITE_MOVIE_DETAIL_ID = 700;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +88,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         fabFavorite.setEnabled(false);
 
-        collapsingToolbarLayout.setTitle(getResources().getString(R.string.detail_activity));
+        collapsingToolbarLayout.setTitle(getResources().getString(R.string.title_activity_detail));
         collapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
 
@@ -132,10 +130,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_MOVIE_ID, movie.getMovieId());
-        getSupportLoaderManager().initLoader(LOAD_ID_MOVIE_DETAIL, bundle, this);
 
+        getSupportLoaderManager().initLoader(LOAD_FAVORITE_MOVIE_DETAIL_ID,bundle,this);
     }
-
 
     @NonNull
     @Override
@@ -144,11 +141,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if (args != null) {
             movieId = args.getInt(EXTRA_MOVIE_ID);
         }
-        return new LoaderMovieDetail(this, movieId);
+        return new LoaderMovieDetail(this,movieId);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<Movie> loader, final Movie data) {
+    public void onLoadFinished(@NonNull Loader<Movie> loader, Movie data) {
         Glide.with(this)
                 .load(imgUrl + data.getMoviePosterUrl())
                 .into(movieImage);
@@ -173,6 +170,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset(@NonNull Loader<Movie> loader) {
+
     }
 
     private ArrayList<String> getMultipleDetail(String key, Movie movie) {

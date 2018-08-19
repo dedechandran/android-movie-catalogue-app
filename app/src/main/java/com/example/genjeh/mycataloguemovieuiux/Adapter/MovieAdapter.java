@@ -56,9 +56,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         Glide.with(context)
                 .load(imgUrl + listMovies.get(position).getMoviePosterUrl())
                 .into(holder.movieImage);
-        holder.movieFavProperties.get(0).setText(getListMovies().get(position).getMovieTitle());
-        holder.movieFavProperties.get(1).setText(getListMovies().get(position).getMovieOverview());
-        holder.movieFavProperties.get(2).setText(getListMovies().get(position).getMovieReleaseDate());
+        holder.movieProperties.get(0).setText(getListMovies().get(position).getMovieTitle());
+        holder.movieProperties.get(1).setText(getListMovies().get(position).getMovieOverview());
+        holder.movieProperties.get(2).setText(getListMovies().get(position).getMovieReleaseDate());
         holder.movieBtn.get(0).setOnClickListener(new CustomOnItemClickListener(position, new CustomOnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View v, int position) {
@@ -89,7 +89,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
     class MovieHolder extends RecyclerView.ViewHolder {
         @BindViews({R.id.movie_title, R.id.movie_overview, R.id.movie_release_date})
-        List<TextView> movieFavProperties;
+        List<TextView> movieProperties;
 
         @BindView(R.id.movie_image)
         ImageView movieImage;

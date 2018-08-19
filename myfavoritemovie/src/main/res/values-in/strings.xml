@@ -1,18 +1,5 @@
 <resources>
-    <string name="app_name">Movie Catalogue</string>
-    <string name="detail_activity">Detail Film"</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="search">Telusuri</string>
-    <string name="change_language">Ganti Bahasa</string>
-    <string name="title_upcoming">Akan Datang</string>
-    <string name="title_now_playing">Sedang Tayang</string>
-    <string name="title_favorite">Favorit</string>
-    <string name="detail">detail</string>
-    <string name="share">bagikan</string>
-    <string name="query_hint">Telusuri Film</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">MyFavoriteMovie</string>
     <string name="detail_overview">Gambaran</string>
     <string name="detail_title">Judul</string>
     <string name="detail_movie">Detail</string>
@@ -30,5 +17,7 @@
     <string name="movie_result">Film Tidak Ditemukan</string>
     <string name="confirmation_added">Telah ditambahkan ke favorit</string>
     <string name="confirmation_delete">Telah dihapus dari favorit</string>
+    <string name="detail">detail</string>
+    <string name="share">bagikan</string>
     <string name="no_result">Tidak ada hasil</string>
 </resources>

@@ -30,4 +30,8 @@
     <string name="detail_country">Country</string>
     <string name="favorite_page">Favorite Page</string>
     <string name="movie_result">Movie Not Found</string>
+
+    <string name="confirmation_added">Added to favorite</string>
+    <string name="confirmation_delete">Deleted from favorite</string>
+    <string name="no_result">No Result</string>
 </resources>

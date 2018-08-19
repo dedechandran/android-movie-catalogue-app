@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MyFavoriteMovie</string>
+    <string name="detail_overview">Overview</string>
+    <string name="detail_title">Title</string>
+    <string name="detail_movie">Detail</string>
+    <string name="detail_official_sites">Official Sites</string>
+    <string name="detail_language">Language</string>
+    <string name="detail_release_date">Release Date</string>
+    <string name="detail_genres">Genres</string>
+    <string name="detail_companies">Companies</string>
+    <string name="detail_duration">Duration</string>
+    <string name="detail_vote_count">Vote Count</string>
+    <string name="detail_average_vote">Average Vote</string>
+    <string name="detail_popularity">Popularity</string>
+    <string name="detail_country">Country</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="confirmation_added">Added to favorite</string>
+    <string name="confirmation_delete">Deleted from favorite</string>
+    <string name="detail">detail</string>
+    <string name="share">share</string>
+    <string name="no_result">No result</string>
+</resources>

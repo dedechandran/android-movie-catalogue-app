@@ -15,11 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.genjeh.mycataloguemovieuiux.Adapter.MovieFavoriteAdapter;
 import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
 import com.example.genjeh.mycataloguemovieuiux.Loader.LoaderMovieFavorit;
 import com.example.genjeh.mycataloguemovieuiux.R;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +36,9 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
 
     @BindView(R.id.progressbar)
     ProgressBar progressBar;
+
+    @BindView(R.id.tv_result_movie_favorite)
+    TextView tvResultMovieFavorite;
 
     private MovieFavoriteAdapter adapter;
     private static final int LOAD_ID_MOVIE_FAVORITE = 400;
@@ -51,6 +57,8 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         adapter = new MovieFavoriteAdapter(getContext());
         rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMovie.setAdapter(adapter);
+
+        tvResultMovieFavorite.setVisibility(View.INVISIBLE);
 
 
         getLoaderManager().initLoader(LOAD_ID_MOVIE_FAVORITE,null,this);
@@ -75,6 +83,11 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         progressBar.setVisibility(View.GONE);
         adapter.setDataMovieFav(data);
         adapter.notifyDataSetChanged();
+        if(adapter.getItemCount()==0){
+            tvResultMovieFavorite.setVisibility(View.VISIBLE);
+        }else{
+            tvResultMovieFavorite.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

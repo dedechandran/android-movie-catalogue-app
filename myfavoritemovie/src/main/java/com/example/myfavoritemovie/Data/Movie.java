@@ -1,11 +1,10 @@
-package com.example.genjeh.mycataloguemovieuiux.Data;
+package com.example.myfavoritemovie.Data;
 
 import android.database.Cursor;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
+import com.example.myfavoritemovie.Database.DbContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -192,7 +191,7 @@ public class Movie implements Parcelable {
         this.movieDuration = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);
