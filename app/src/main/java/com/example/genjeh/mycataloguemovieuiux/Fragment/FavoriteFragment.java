@@ -95,4 +95,10 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         adapter.setDataMovieFav(null);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroyView() {
+        getLoaderManager().destroyLoader(LOAD_ID_MOVIE_FAVORITE);
+        super.onDestroyView();
+    }
 }

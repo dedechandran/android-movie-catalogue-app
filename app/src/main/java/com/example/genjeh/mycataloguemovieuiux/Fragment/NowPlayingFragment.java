@@ -77,4 +77,10 @@ public class NowPlayingFragment extends Fragment implements LoaderManager.Loader
         movieAdapter.setListMovies(null);
         movieAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroyView() {
+        getLoaderManager().destroyLoader(LOAD_ID_MOVIE_NOW_PLAYING);
+        super.onDestroyView();
+    }
 }
