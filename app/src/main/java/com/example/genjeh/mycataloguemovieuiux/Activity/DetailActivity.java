@@ -171,11 +171,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         fabFavorite.setEnabled(true);
     }
 
-    @Override
-    protected void onDestroy() {
-        getSupportLoaderManager().destroyLoader(LOAD_ID_MOVIE_DETAIL);
-        super.onDestroy();
-    }
+
 
     @Override
     public void onLoaderReset(@NonNull Loader<Movie> loader) {

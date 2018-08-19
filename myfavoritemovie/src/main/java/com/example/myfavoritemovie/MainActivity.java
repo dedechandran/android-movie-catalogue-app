@@ -46,11 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         getSupportLoaderManager().initLoader(LOAD_FAVORITE_MOVIE_ID,null,this);
     }
 
-    @Override
-    protected void onDestroy() {
-        getSupportLoaderManager().destroyLoader(LOAD_FAVORITE_MOVIE_ID);
-        super.onDestroy();
-    }
+
 
     @Override
     protected void onRestart() {

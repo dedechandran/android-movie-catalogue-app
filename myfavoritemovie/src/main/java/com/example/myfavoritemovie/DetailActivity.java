@@ -134,11 +134,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         getSupportLoaderManager().initLoader(LOAD_FAVORITE_MOVIE_DETAIL_ID,bundle,this);
     }
 
-    @Override
-    protected void onDestroy() {
-        getSupportLoaderManager().destroyLoader(LOAD_FAVORITE_MOVIE_DETAIL_ID);
-        super.onDestroy();
-    }
 
     @NonNull
     @Override

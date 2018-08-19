@@ -81,9 +81,5 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
         movieAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onDestroyView() {
-        getLoaderManager().destroyLoader(LOAD_ID_MOVIE_UPCOMING);
-        super.onDestroyView();
-    }
+
 }

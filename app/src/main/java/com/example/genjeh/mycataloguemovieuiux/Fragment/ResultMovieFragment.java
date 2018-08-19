@@ -94,9 +94,5 @@ public class ResultMovieFragment extends Fragment implements LoaderManager.Loade
         this.movieName = movieName;
     }
 
-    @Override
-    public void onDestroyView() {
-        getLoaderManager().destroyLoader(LOAD_ID_MOVIE_RESULT);
-        super.onDestroyView();
-    }
+
 }
