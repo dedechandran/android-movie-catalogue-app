@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.genjeh.mycataloguemovieuiux.Data.Movie;
+import com.example.genjeh.mycataloguemovieuiux.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
@@ -94,7 +96,6 @@ public class LoaderMovieUpComing extends AsyncTaskLoader<ArrayList<Movie>> {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
             }
         });
         return upcomingmovieItems;

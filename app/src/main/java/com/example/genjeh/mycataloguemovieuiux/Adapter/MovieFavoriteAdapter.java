@@ -88,7 +88,7 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
         @BindViews({R.id.btn_detail, R.id.btn_share})
         List<Button> movieBtn;
 
-        public MovieFavoriteHolder(View itemView) {
+        MovieFavoriteHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

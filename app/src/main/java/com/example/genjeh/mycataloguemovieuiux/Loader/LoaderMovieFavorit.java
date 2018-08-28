@@ -6,14 +6,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
 import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
+import com.example.genjeh.mycataloguemovieuiux.Database.MovieHelper;
 
 public class LoaderMovieFavorit extends CursorLoader {
     private Cursor movieFavorite;
     private boolean hasResult = false;
+    private MovieHelper database;
 
     @Override
     public Cursor loadInBackground() {
-        return getContext().getContentResolver().query(DbContract.CONTENT_URI, null, null, null, null);
+        Cursor cursor;
+        cursor = database.query();
+        return cursor;
     }
 
     @Override
@@ -25,6 +29,7 @@ public class LoaderMovieFavorit extends CursorLoader {
 
     @Override
     protected void onStartLoading() {
+        database.open();
         if (takeContentChanged()) {
             forceLoad();
         } else if (hasResult) {
@@ -42,8 +47,15 @@ public class LoaderMovieFavorit extends CursorLoader {
         }
     }
 
+    @Override
+    protected void onStopLoading() {
+        //database.close();
+        super.onStopLoading();
+    }
+
     public LoaderMovieFavorit(@NonNull Context context) {
         super(context);
         onContentChanged();
+        database = new MovieHelper(context);
     }
 }

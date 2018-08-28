@@ -1,9 +1,10 @@
 package com.example.genjeh.mycataloguemovieuiux.Activity;
 
+import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.genjeh.mycataloguemovieuiux.Data.Movie;
 import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
+import com.example.genjeh.mycataloguemovieuiux.Database.MovieHelper;
 import com.example.genjeh.mycataloguemovieuiux.Loader.LoaderMovieDetail;
 import com.example.genjeh.mycataloguemovieuiux.R;
 
@@ -72,6 +74,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private boolean flag = false;
     private Movie movie;
     private static final int LOAD_ID_MOVIE_DETAIL = 500;
+    private MovieHelper database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,14 +100,15 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         movie = getIntent().getParcelableExtra(EXTRA_MOVIE_FAVORITE);
 
         //mengecek kedalam database apakah movie tertentu sudah pernah dijadikan movie favorite atau belum
-        Uri uri = Uri.parse(DbContract.CONTENT_URI + "/" + movie.getMovieId());
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        database = new MovieHelper(this);
+        database.open();
+        Cursor cursor = database.queryMovieId(String.valueOf(movie.getMovieId()));
         if (cursor.getCount() > 0) {
             flag = true;
             fabFavorite.setImageResource(R.drawable.ic_star_white_24dp);
         }
         cursor.close();
-
+        database.close();
 
         fabFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +116,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 if (flag) {
                     fabFavorite.setImageResource(R.drawable.ic_star_border_white_24dp);
                     flag = false;
-                    Uri uri = Uri.parse(DbContract.CONTENT_URI + "/" + movie.getMovieId());
-                    getContentResolver().delete(uri, null, null);
+                    database.open();
+                    database.deleteMovieId(String.valueOf(movie.getMovieId()));
+                    database.close();
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.confirmation_delete), Toast.LENGTH_SHORT).show();
                 } else {
                     flag = true;
@@ -124,7 +129,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                     contentValues.put(DbContract.FavoriteColumns.MOVIE_DESC, movie.getMovieOverview());
                     contentValues.put(DbContract.FavoriteColumns.MOVIE_DATE, movie.getMovieReleaseDate());
                     contentValues.put(DbContract.FavoriteColumns.MOVIE_PATH_IMG, movie.getMoviePosterUrl());
-                    getContentResolver().insert(DbContract.CONTENT_URI, contentValues);
+                    database.open();
+                    database.insert(contentValues);
+                    database.close();
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.confirmation_added), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -250,5 +257,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         } else {
             view.setText(detail);
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 }

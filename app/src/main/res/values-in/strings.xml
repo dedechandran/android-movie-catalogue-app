@@ -31,4 +31,6 @@
     <string name="confirmation_added">Telah ditambahkan ke favorit</string>
     <string name="confirmation_delete">Telah dihapus dari favorit</string>
     <string name="no_result">Tidak ada hasil</string>
+    <string name="no_internet_connection">Tidak Ada Koneksi Internet</string>
+    <string name="no_data">Tidak Ada Data</string>
 </resources>

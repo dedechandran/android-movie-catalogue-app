@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+import android.widget.Toast;
 
 import com.example.genjeh.mycataloguemovieuiux.Data.Movie;
+import com.example.genjeh.mycataloguemovieuiux.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
@@ -78,8 +80,7 @@ public class LoaderMovieDetail extends AsyncTaskLoader<Movie> {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            }
+           }
         });
         return movieDetailItem[0];
     }

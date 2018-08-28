@@ -152,6 +152,7 @@ public class Movie implements Parcelable {
         return movieDuration;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -192,7 +193,7 @@ public class Movie implements Parcelable {
         this.movieDuration = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);
