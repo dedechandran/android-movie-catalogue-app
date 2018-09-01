@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
-    <string name="detail_activity">Detail Film"</string>
+    <string name="detail_activity">Detail Film</string>
+    <string name="reminder_activity">Pengingat</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="search">Telusuri</string>
@@ -33,4 +34,14 @@
     <string name="no_result">Tidak ada hasil</string>
     <string name="no_internet_connection">Tidak Ada Koneksi Internet</string>
     <string name="no_data">Tidak Ada Data</string>
+    <string name="content_text_daily">Movie Catalogue merindukanmu</string>
+    <string name="content_text_today">Hari ini</string>
+    <string name="content_text_released">telah dirilis</string>
+    <string name="toast_set_notif">Pengingat telah diset</string>
+    <string name="toast_cancel_notif">Pengingat telah dibatalkan</string>
+    <string name="set_daily_reminder_at_07_00_am">Atur pengingat harian pukul 07.00</string>
+    <string name="set_release_today_reminder_at_08_00_am">Atur pengingat rilis hari ini pukul 08.00</string>
+    <string name="content_text_no_released_movie">Tidak ada film dirilis hari ini</string>
+    <string name="reminder_setting">Atur Pengingat</string>
+    <string name="movie_poster">Poster Film</string>
 </resources>

@@ -4,7 +4,7 @@
     android:initialLayout="@layout/movie_favorite_widget"
     android:minHeight="110dp"
     android:minWidth="250dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/ic_local_movies_white_48dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
-    android:widgetCategory="home_screen"></appwidget-provider>
+    android:widgetCategory="home_screen"/>

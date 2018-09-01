@@ -184,6 +184,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.changeLanguage) {
             Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(intent);
+        }else if(item.getItemId() == R.id.settingReminder){
+            Intent intent = new Intent(this,NotificationSettingActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,32 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:padding="@dimen/widget_margin">
 
-    <LinearLayout
+    <StackView
+        android:id="@+id/stack_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <StackView
-            android:id="@+id/stack_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".9"
-            android:loopViews="true" />
-
-        <TextView
-            android:id="@+id/widget_movie_title"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".1"
-            android:gravity="center"
-            android:text="Movie Title"
-            android:textSize="20sp" />
-
-    </LinearLayout>
+        android:loopViews="true" />
 
     <TextView
         android:id="@+id/empty_view"

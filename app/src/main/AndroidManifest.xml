@@ -4,7 +4,8 @@
     package="com.example.genjeh.mycataloguemovieuiux">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <permission
         android:name="com.example.genjeh.mycataloguemovieuiux.READ_DATABASE"
@@ -16,6 +17,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -34,9 +36,10 @@
             android:name=".Activity.DetailActivity"
             android:parentActivityName=".Activity.MainActivity"
             android:theme="@style/AppTheme"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator,UnusedAttribute" />
 
-        <receiver android:name=".MovieFavoriteWidget">
+        <receiver android:name=".Widget.MovieFavoriteWidget"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -46,8 +49,25 @@
                 android:resource="@xml/movie_favorite_widget_info" />
         </receiver>
 
-        <service android:name=".WidgetMovieFavoriteService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+
+        <activity
+            android:name=".Activity.NotificationSettingActivity"
+            android:label="@string/reminder_activity"
+            tools:ignore="InnerclassSeparator" />
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:exported="true" />
+
+        <service
+            android:name=".ReleasedMoviesService"
+            android:exported="true" />
+
+        <service
+            android:name=".Widget.WidgetMovieFavoriteService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            tools:ignore="InnerclassSeparator" />
     </application>
 
 </manifest>

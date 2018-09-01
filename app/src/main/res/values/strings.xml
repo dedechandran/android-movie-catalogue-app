@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
     <string name="detail_activity">Movie Detail</string>
-
+    <string name="reminder_activity">Reminder</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="search">Search</string>
     <string name="change_language">Change Language</string>
@@ -39,4 +39,14 @@
     <string name="add_widget">Add widget</string>
 
     <string name="no_data">No Data</string>
+    <string name="set_daily_reminder_at_07_00_am">Set Daily Remainder At 07.00 AM</string>
+    <string name="set_release_today_reminder_at_08_00_am">Set Release Today Remainder At 08.00 AM</string>
+    <string name="reminder_setting">Reminder Setting</string>
+    <string name="content_text_daily">Movie Catalogue missing you</string>
+    <string name="content_text_today">Today</string>
+    <string name="content_text_released">released</string>
+    <string name="toast_set_notif">Reminder has been set</string>
+    <string name="toast_cancel_notif">Reminder has been canceled</string>
+    <string name="content_text_no_released_movie">No movies released today</string>
+    <string name="movie_poster">Movie Poster</string>
 </resources>

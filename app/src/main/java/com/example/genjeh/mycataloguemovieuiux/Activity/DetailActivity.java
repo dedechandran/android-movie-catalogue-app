@@ -1,6 +1,7 @@
 package com.example.genjeh.mycataloguemovieuiux.Activity;
 
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -25,6 +27,7 @@ import com.example.genjeh.mycataloguemovieuiux.Data.Movie;
 import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
 import com.example.genjeh.mycataloguemovieuiux.Database.MovieHelper;
 import com.example.genjeh.mycataloguemovieuiux.Loader.LoaderMovieDetail;
+import com.example.genjeh.mycataloguemovieuiux.Widget.MovieFavoriteWidget;
 import com.example.genjeh.mycataloguemovieuiux.R;
 
 import java.text.DecimalFormat;
@@ -83,13 +86,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fabFavorite.setEnabled(false);
 
@@ -110,6 +107,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         cursor.close();
         database.close();
 
+        ComponentName componentName = new ComponentName(this, MovieFavoriteWidget.class);
+        final int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(componentName);
+
         fabFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +119,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                     database.open();
                     database.deleteMovieId(String.valueOf(movie.getMovieId()));
                     database.close();
+                    AppWidgetManager.getInstance(getApplicationContext()).notifyAppWidgetViewDataChanged(ids,R.id.stack_view);
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.confirmation_delete), Toast.LENGTH_SHORT).show();
                 } else {
                     flag = true;
@@ -132,6 +133,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                     database.open();
                     database.insert(contentValues);
                     database.close();
+                    AppWidgetManager.getInstance(getApplicationContext()).notifyAppWidgetViewDataChanged(ids,R.id.stack_view);
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.confirmation_added), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -182,6 +184,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset(@NonNull Loader<Movie> loader) {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private ArrayList<String> getMultipleDetail(String key, Movie movie) {
@@ -259,9 +269,4 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         }
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-    }
 }

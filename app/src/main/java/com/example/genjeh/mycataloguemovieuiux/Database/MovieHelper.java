@@ -12,7 +12,7 @@ public class MovieHelper {
     private Context context;
     private SQLiteDatabase database;
     private static final String FAVORITE_TABLE_NAME = DbContract.TABLE_NAME;
-    private static final String COLUMN_ID = DbContract.FavoriteColumns._ID;
+
 
 
     public MovieHelper(Context context) {
@@ -30,7 +30,7 @@ public class MovieHelper {
     }
 
     public Cursor query(){
-        return database.query(FAVORITE_TABLE_NAME,null,null,null,null,null,null,null);
+        return database.query(FAVORITE_TABLE_NAME,null,null,null,null,null, DbContract.FavoriteColumns._ID + " DESC",null);
     }
 
     public Cursor queryMovieId(String movieId){

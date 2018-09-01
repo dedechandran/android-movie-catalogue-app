@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
-import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
+
 import com.example.genjeh.mycataloguemovieuiux.Database.MovieHelper;
 
 public class LoaderMovieFavorit extends CursorLoader {

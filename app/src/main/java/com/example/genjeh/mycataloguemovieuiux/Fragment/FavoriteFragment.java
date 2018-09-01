@@ -1,7 +1,7 @@
 package com.example.genjeh.mycataloguemovieuiux.Fragment;
 
 
-import android.content.Context;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,11 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.genjeh.mycataloguemovieuiux.Adapter.MovieFavoriteAdapter;
-import com.example.genjeh.mycataloguemovieuiux.Database.DbContract;
 import com.example.genjeh.mycataloguemovieuiux.Loader.LoaderMovieFavorit;
 import com.example.genjeh.mycataloguemovieuiux.R;
 
-import org.w3c.dom.Text;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
