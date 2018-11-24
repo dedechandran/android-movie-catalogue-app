@@ -52,8 +52,8 @@
                     style="@style/ButtonMoviewItem.Detail" />
 
                 <Button
-                    android:id="@+id/btn_favorite"
-                    style="@style/ButtonMoviewItem.Favorite" />
+                    android:id="@+id/btn_share"
+                    style="@style/ButtonMoviewItem.share" />
 
             </LinearLayout>
 

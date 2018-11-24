@@ -1,7 +1,7 @@
 package com.example.genjeh.mycataloguemovieuiux.Fragment;
 
 
-import android.content.Context;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,43 +22,40 @@ import com.example.genjeh.mycataloguemovieuiux.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
+
+    @BindView(R.id.rv_movie)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
     private MovieAdapter movieAdapter;
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
-    private Context mContext;
+    private static final int LOAD_ID_MOVIE_UPCOMING = 200;
 
     public UpcomingFragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext=context;
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mContext=null;
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_upcoming, container, false);
-        movieAdapter = new MovieAdapter(getActivity());
-        movieAdapter.notifyDataSetChanged();
-        recyclerView = view.findViewById(R.id.rv_movie);
-        recyclerView.setNestedScrollingEnabled(true);
-        progressBar = view.findViewById(R.id.progressbar);
-        getLoaderManager().initLoader(0, null, this);
+        ButterKnife.bind(this,view);
+        movieAdapter = new MovieAdapter(getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(movieAdapter);
+        getLoaderManager().initLoader(LOAD_ID_MOVIE_UPCOMING, null, this);
 
         return view;
     }
@@ -68,19 +65,21 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
     @NonNull
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new LoaderMovieUpComing(mContext);
+        return new LoaderMovieUpComing(getContext());
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
-           progressBar.setVisibility(View.INVISIBLE);
+           progressBar.setVisibility(View.GONE);
            movieAdapter.setListMovies(data);
-           recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-           recyclerView.setAdapter(movieAdapter);
+           movieAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Movie>> loader) {
         movieAdapter.setListMovies(null);
+        movieAdapter.notifyDataSetChanged();
     }
+
+
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/widget_movie_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".9"
+        android:contentDescription="@string/movie_poster"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/tv_widget_movie_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:textSize="12sp"
+        android:gravity="center"
+        tools:text="Movie Title"
+        />
+
+</LinearLayout>

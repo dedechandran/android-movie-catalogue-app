@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/movie_favorite_widget"
+    android:initialLayout="@layout/movie_favorite_widget"
+    android:minHeight="110dp"
+    android:minWidth="250dp"
+    android:previewImage="@drawable/ic_local_movies_white_48dp"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen"/>

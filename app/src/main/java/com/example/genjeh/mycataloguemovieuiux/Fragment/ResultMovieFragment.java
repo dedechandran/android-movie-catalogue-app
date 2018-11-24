@@ -23,43 +23,41 @@ import com.example.genjeh.mycataloguemovieuiux.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ResultMovieFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
-    private MovieAdapter movieAdapter;
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
+
+    @BindView(R.id.rv_movie)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.tv_result)
+    TextView tvResult;
+
     private String movieName;
-    private Context mContext;
-    private TextView tvResult;
+    private MovieAdapter movieAdapter;
+    private static final int LOAD_ID_MOVIE_RESULT = 100;
 
     public ResultMovieFragment() {
         // Required empty public constructor
     }
 
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext=context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mContext=null;
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_result_movie, container, false);
-        recyclerView = view.findViewById(R.id.rv_movie);
-        recyclerView.setNestedScrollingEnabled(true);
-        progressBar = view.findViewById(R.id.progressbar);
-        movieAdapter = new MovieAdapter(getActivity());
-        movieAdapter.notifyDataSetChanged();
-        tvResult = view.findViewById(R.id.tv_result);
-        getLoaderManager().initLoader(22, null, this);
+        ButterKnife.bind(this, view);
+        movieAdapter = new MovieAdapter(getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(movieAdapter);
+        getLoaderManager().initLoader(LOAD_ID_MOVIE_RESULT, null, this);
 
         return view;
     }
@@ -68,26 +66,24 @@ public class ResultMovieFragment extends Fragment implements LoaderManager.Loade
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, @Nullable Bundle args) {
 
-        return new LoaderMovieResult(mContext,getMovieName());
+        return new LoaderMovieResult(getContext(), getMovieName());
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
         movieAdapter.setListMovies(data);
-        if(movieAdapter.getListMovies().size()!=0){
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(movieAdapter);
-        }else{
+        movieAdapter.notifyDataSetChanged();
+        if (movieAdapter.getListMovies().size() == 0) {
             tvResult.setText(getResources().getString(R.string.movie_result));
             tvResult.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Movie>> loader) {
         movieAdapter.setListMovies(null);
+        movieAdapter.notifyDataSetChanged();
     }
 
     public String getMovieName() {
@@ -97,4 +93,6 @@ public class ResultMovieFragment extends Fragment implements LoaderManager.Loade
     public void setMovieName(String movieName) {
         this.movieName = movieName;
     }
+
+
 }

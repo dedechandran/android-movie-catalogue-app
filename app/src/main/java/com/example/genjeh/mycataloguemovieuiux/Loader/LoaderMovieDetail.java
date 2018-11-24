@@ -4,8 +4,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+import android.widget.Toast;
 
+import com.example.genjeh.mycataloguemovieuiux.BuildConfig;
 import com.example.genjeh.mycataloguemovieuiux.Data.Movie;
+import com.example.genjeh.mycataloguemovieuiux.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.SyncHttpClient;
 
@@ -16,9 +19,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class LoaderMovieDetail extends AsyncTaskLoader<Movie> {
     private Movie movieDetail;
-    private boolean hasResult=false;
+    private boolean hasResult = false;
     private int movieId;
-    private static final String API_KEY = "a4efaa7ae55e845278da0fd4549e3246";
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     public LoaderMovieDetail(@NonNull Context context, int movieId) {
         super(context);
@@ -30,9 +33,9 @@ public class LoaderMovieDetail extends AsyncTaskLoader<Movie> {
     protected void onReset() {
         super.onReset();
         onStopLoading();
-        if(hasResult){
-            movieDetail=null;
-            hasResult=false;
+        if (hasResult) {
+            movieDetail = null;
+            hasResult = false;
         }
     }
 
@@ -45,9 +48,9 @@ public class LoaderMovieDetail extends AsyncTaskLoader<Movie> {
 
     @Override
     protected void onStartLoading() {
-        if(takeContentChanged()){
+        if (takeContentChanged()) {
             forceLoad();
-        }else if(hasResult){
+        } else if (hasResult) {
             deliverResult(movieDetail);
         }
     }
@@ -57,7 +60,7 @@ public class LoaderMovieDetail extends AsyncTaskLoader<Movie> {
     public Movie loadInBackground() {
         SyncHttpClient client = new SyncHttpClient();
         final Movie[] movieDetailItem = new Movie[1];
-        String url = "https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+API_KEY+"&language=en-US";
+        String url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + API_KEY + "&language=en-US";
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
@@ -78,7 +81,6 @@ public class LoaderMovieDetail extends AsyncTaskLoader<Movie> {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
             }
         });
         return movieDetailItem[0];
